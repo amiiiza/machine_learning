@@ -1,0 +1,30 @@
+#!/bin/bash
+
+task="A"
+language="cpp"
+
+while [[ $# -gt 0 ]]
+do
+    option="$1"
+    case $option in
+        -f)
+            language="$2"
+            shift 2
+            ;;
+        *)
+            task="$1"
+            shift 1
+            ;;
+    esac
+done
+
+stay="bash -c \"read var\""
+
+case $language in
+    py)
+        gnome-terminal -- bash -c "time pypy3 tasks/$task.py; $stay;"
+        ;;
+    cpp)
+        gnome-terminal -- bash -c "time bin/$task; $stay;"
+        ;;
+esac

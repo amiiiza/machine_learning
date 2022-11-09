@@ -1,0 +1,28 @@
+#!/bin/bash
+
+task="A"
+directory="tasks"
+flags="-Wall -Wextra -O3 -mavx2 -march=native"
+
+while [[ $# -gt 0 ]]
+do
+    option="$1"
+    case $option in
+        -d)
+            directory="$2"
+            shift 2
+            ;;
+        -o)
+            flags="-Wall -Og -g"
+            shift 1
+            ;;
+        *)
+            task="$1"
+            shift 1
+            ;;
+    esac
+done
+
+mkdir -p bin
+stay="echo done; bash -c \"read var\""
+gnome-terminal -- bash -c "g++ -std=c++17 $flags $directory/$task.cpp -o bin/$task; $stay;"

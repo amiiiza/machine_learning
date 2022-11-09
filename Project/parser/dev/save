@@ -1,0 +1,23 @@
+#!/bin/bash
+
+description=`date +%Y-%m-%d-%H-%M` 
+file="none"
+
+while [[ $# -gt 0 ]]
+do
+    option="$1"
+    case $option in
+        -m)
+            description="$2"
+            shift 2
+            ;;
+        *)
+            file="$1"
+            shift 1
+            ;;
+    esac
+done
+
+mkdir -p upsolve
+cp tasks/$file.cpp upsolve/$file-$description.cpp
+
